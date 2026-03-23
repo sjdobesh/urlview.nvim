@@ -64,6 +64,11 @@ function M.clipboard(raw_url)
   utils.log(string.format("URL %s copied to clipboard", raw_url), vim.log.levels.INFO)
 end
 
+local function feedkeys(keys, mode, escape_ks)
+  local replaced_keys = vim.api.nvim_replace_termcodes(keys, true, true, escape_ks)
+  vim.api.nvim_feedkeys(replaced_keys, mode, escape_ks)
+end
+
 -- for manually set action!
 return setmetatable(M, {
   -- execute action as command if it is not one of the above module keys
@@ -76,7 +81,17 @@ return setmetatable(M, {
         if raw_url:match(http_pattern) or raw_url:match(www_pattern) then
           return shell_exec(k, raw_url)
         else
-          vim.cmd("e " .. raw_url)
+          if not vim.loop.fs_stat(raw_url) then
+            print("couldn't find " .. raw_url)
+            local newpath = raw_url:match("[.~]*/[%w/]+")
+            local choice = vim.fn.confirm(newpath, "create file? &yes\n&no")
+            if choice == 1 then
+              feedkeys(":e " .. newpath .. "<cr>", "n", true)
+            end
+          else
+            print("found " .. raw_url)
+            feedkeys(":e " .. raw_url .. "<cr>", "n", true)
+          end
         end
       end
     end

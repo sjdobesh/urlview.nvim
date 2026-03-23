@@ -71,18 +71,18 @@ function M.content(content)
   -- " ./ " relative path
   -- " ~/ " home path
   -- stylua: ignore
-  for capture in content:gmatch("[%.~]/%w" .. constants.pattern) do
+  for capture in content:gmatch("[%.~]/[%w/]+") do
     if not captures[capture] then
       captures[capture] = ""
     end
   end
-  -- -- " / " absolute path
-  -- -- stylua: ignore
-  -- for capture in content:gmatch("/%w" .. constants.pattern) do
-  --   if not captures[capture] then
-  --     captures[capture] = ""
-  --   end
-  -- end
+  -- " / " absolute path
+  -- stylua: ignore
+  for capture in content:gmatch("[^%w~%.]/[%w/]+") do
+    if not captures[capture] then
+      captures[capture] = ""
+    end
+  end
 
   -- Combine captures
   local links = {}
