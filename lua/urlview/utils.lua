@@ -21,9 +21,9 @@ function M.process_links(links, opts)
 
   -- Attach missing HTTP(s) protocol
   for _, link in ipairs(links) do
-    if not link:match("^" .. constants.http_pattern) then
-      link = config.default_prefix .. link
-    end
+    -- if not link:match("^" .. constants.http_pattern) then
+    --   link = config.default_prefix .. link
+    -- end
     table.insert(new_links, link)
   end
 

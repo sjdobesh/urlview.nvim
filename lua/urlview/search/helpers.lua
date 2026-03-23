@@ -1,3 +1,15 @@
+-- test paths
+-- /absolute/path
+-- ./relative/path
+-- (/absolute/md/path)
+-- %dont/get/this/%
+-- (./relative/md/path)
+-- ~/home/path
+-- require("some.file")
+-- #include <stdlib/file>
+-- #include "locallib/file"
+-- link https://google.com
+-- link www.google.com
 local M = {}
 
 local constants = require("urlview.config.constants")
@@ -40,9 +52,12 @@ function M.content(content)
 
   -- Extract URLs starting with http:// or https://
   for capture in content:gmatch(constants.http_pattern .. "%w" .. constants.pattern) do
-    local prefix = capture:match(constants.http_pattern)
-    local url = capture:gsub(constants.http_pattern, "")
-    captures[url] = prefix
+    -- local prefix = capture:match(constants.http_pattern)
+    -- local url = capture:gsub(constants.http_pattern, "")
+    -- captures[url] = prefix
+    if not captures[capture] then
+      captures[capture] = ""
+    end
   end
 
   -- Extract URLs starting with www, excluding already extracted http(s) URLs
@@ -51,6 +66,23 @@ function M.content(content)
       captures[capture] = ""
     end
   end
+
+  -- extract file paths
+  -- " ./ " relative path
+  -- " ~/ " home path
+  -- stylua: ignore
+  for capture in content:gmatch("[%.~]/%w" .. constants.pattern) do
+    if not captures[capture] then
+      captures[capture] = ""
+    end
+  end
+  -- -- " / " absolute path
+  -- -- stylua: ignore
+  -- for capture in content:gmatch("/%w" .. constants.pattern) do
+  --   if not captures[capture] then
+  --     captures[capture] = ""
+  --   end
+  -- end
 
   -- Combine captures
   local links = {}

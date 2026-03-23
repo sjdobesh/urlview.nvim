@@ -38,6 +38,7 @@ function M.netrw(raw_url)
 end
 
 --- Use the user's default browser to navigate to a URL
+--- this is never called?
 ---@param raw_url string @unescaped URL
 function M.system(raw_url)
   local os = utils.os
@@ -63,12 +64,20 @@ function M.clipboard(raw_url)
   utils.log(string.format("URL %s copied to clipboard", raw_url), vim.log.levels.INFO)
 end
 
+-- for manually set action!
 return setmetatable(M, {
   -- execute action as command if it is not one of the above module keys
   __index = function(_, k)
     if k ~= nil then
       return function(raw_url)
-        return shell_exec(k, raw_url)
+        local http_pattern = "https?://"
+        local www_pattern = "www%."
+        print(raw_url)
+        if raw_url:match(http_pattern) or raw_url:match(www_pattern) then
+          return shell_exec(k, raw_url)
+        else
+          vim.cmd("e " .. raw_url)
+        end
       end
     end
   end,
