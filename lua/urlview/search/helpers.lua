@@ -71,14 +71,14 @@ function M.content(content)
   -- " ./ " relative path
   -- " ~/ " home path
   -- stylua: ignore
-  for capture in content:gmatch("[%.~]/[%w/-._]+") do
+  for capture in content:gmatch("[%.~]/[%w/%-%._]+") do
     if not captures[capture] then
       captures[capture] = ""
     end
   end
   -- " / " absolute path
   -- stylua: ignore
-  for capture in content:gmatch("[^%w~%.]/[%w/-._]+") do
+  for capture in content:gmatch("[^%w~%.]/[%w/%-%._]+") do
     if not captures[capture] then
       captures[capture] = ""
     end
