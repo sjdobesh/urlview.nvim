@@ -84,10 +84,9 @@ return setmetatable(M, {
           vim.fs.normalize(raw_url) -- convert relative to absolute path
           if not vim.loop.fs_stat(raw_url) then
             print("couldn't find " .. raw_url)
-            local newpath = raw_url:match("[.~]*/[%w/]+")
-            local choice = vim.fn.confirm(newpath, "create file? &yes\n&no")
+            local choice = vim.fn.confirm(raw_url, "create file? &yes\n&no")
             if choice == 1 then
-              feedkeys(":e " .. newpath .. "<cr>", "n", true)
+              feedkeys(":e " .. raw_url .. "<cr>", "n", true)
             end
           else
             print("found " .. raw_url)
