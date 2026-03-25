@@ -82,7 +82,7 @@ return setmetatable(M, {
           return shell_exec(k, raw_url)
         else
           vim.fs.normalize(raw_url) -- convert relative to absolute path
-          if not vim.loop.fs_stat(raw_url) then
+          if not vim.uv.fs_stat(raw_url) then
             print("couldn't find " .. raw_url)
             local choice = vim.fn.confirm(raw_url, "create file? &yes\n&no")
             if choice == 1 then
