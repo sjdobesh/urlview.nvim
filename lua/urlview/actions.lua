@@ -81,6 +81,7 @@ return setmetatable(M, {
         if raw_url:match(http_pattern) or raw_url:match(www_pattern) then
           return shell_exec(k, raw_url)
         else
+          vim.fs.normalize(raw_url) -- convert relative to absolute path
           if not vim.loop.fs_stat(raw_url) then
             print("couldn't find " .. raw_url)
             local newpath = raw_url:match("[.~]*/[%w/]+")
