@@ -1,16 +1,36 @@
-<h1 align="center">🔎 urlview.nvim</h1>
-<p align="center"><i>Find and display URLs from a variety of search contexts</i></p>
-<p align="center">
-  <a href="https://github.com/neovim/neovim">
-    <img alt="Neovim Version" src="https://img.shields.io/static/v1?label=&message=%3E%3D0.7&style=for-the-badge&logo=neovim&color=green&labelColor=302D41"/>
-  </a>
-  <a href="https://github.com/axieax/urlview.nvim/stargazers">
-    <img alt="Repo Stars" src="https://img.shields.io/github/stars/axieax/urlview.nvim?style=for-the-badge&color=yellow&label=%E2%AD%90&labelColor=302D41"/>
-  </a>
-  <a href="https://github.com/axieax/urlview.nvim">
-    <img alt="Repo Size" src="https://img.shields.io/github/repo-size/axieax/urlview.nvim?label=&color=orange&logo=hackthebox&style=for-the-badge&logoColor=lightgray&labelColor=302D41"/>
-  </a>
-</p>
+<h1 align="center">🔎 linkview.nvim</h1>
+<p align="center"><i>Find and display links from a variety of search contexts</i></p>
+
+# **PLEASE NOTE:** Linkview is a fork of [urlview.nvim](https://github.com/axieax/urlview.nvim)
+
+## changes
+the only modifications i've introduced are regex parsing for file paths
+and a change in how they are opened so that url prefixes aren't stripped for
+display and readded after. that way file paths are differentiated from
+other collected paths visually for the user and also during the open function.
+the regex lets urlview pick up local, absolute, or home(~) paths which is
+especially useful to me for traversing markdown style links.
+
+if you try to open a path that can't be found a prompt will ask if you want
+to open it anyways before attempting to.
+
+## merge upstream?
+the original plug in seems largely abandoned, and although links were on their roadmap
+it's been years since any large contributions so I think well just leave it here as is.
+happy to merge but don't care to pursue it. im not like a neovim plugin developer
+or whatever, i just wanted this to work for me.
+
+## in summary
+**i have no plan to maintain these changes,
+these modifications are untested, clandestine, & hackish.**
+
+*use with caution...*
+
+
+the readme following is as written at the time of my fork
+
+# original readme
+---
 
 ✨ UrlView is an extensible plugin for the [Neovim](https://neovim.io) text editor which essentially:
 
