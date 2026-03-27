@@ -1,18 +1,16 @@
 <h1 align="center">🔎 linkview.nvim</h1>
 <p align="center"><i>Find and display links from a variety of search contexts</i></p>
 
-# **PLEASE NOTE:** Linkview is a fork of [urlview.nvim](https://github.com/axieax/urlview.nvim)
+> **NOTE**: linkview is a fork of [urlview.nvim](https://github.com/axieax/urlview.nvim)
 
 ## changes
+i take no credit for the original plugin, and my additions are fairly minimal.
 the only modifications i've introduced are regex parsing for file paths
 and a change in how they are opened so that url prefixes aren't stripped for
-display and readded after. that way file paths are differentiated from
+display and re-added after. that way file paths are differentiated from
 other collected paths visually for the user and also during the open function.
-the regex lets urlview pick up local, absolute, or home(~) paths which is
+the regex lets urlview pick up local, absolute, or home (~) paths which is
 especially useful to me for traversing markdown style links.
-
-if you try to open a path that can't be found a prompt will ask if you want
-to open it anyways before attempting to.
 
 ## merge upstream?
 the original plug in seems largely abandoned, and although links were on their roadmap
@@ -26,11 +24,9 @@ these modifications are untested, clandestine, & hackish.**
 
 *use with caution...*
 
-
-the readme following is as written at the time of my fork
+following is the readme as written at the time of my fork
 
 # original readme
----
 
 ✨ UrlView is an extensible plugin for the [Neovim](https://neovim.io) text editor which essentially:
 
